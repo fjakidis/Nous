@@ -1,11 +1,14 @@
 import pyttsx3
 import string
+import sys
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[11].id)
 
-f = open('dialogue', 'w')
+f_str = sys.argv[1] 
+
+f = open(f_str, 'w')
 saved = []
 
 while True:
@@ -16,6 +19,7 @@ while True:
     print(' - 3 - show saved lines')
     print(' - 4 - print a saved text')
     print(' - 5 - speak a saved text')
+    print(' - 6 - playback all')
     print(' - 8 - save prose')
     print(' - 9 - exit')
     print('\n')
@@ -57,6 +61,12 @@ while True:
         print()
         engine.say(saved[index])
         engine.runAndWait()
+    elif(inp=='6'):
+        f.close()
+        g = open(f_str, 'r')
+        for line in g:
+            engine.say(line)
+            engine.runAndWait()
     elif(inp=='8'):
         f.close()
     elif(inp=='9'):
